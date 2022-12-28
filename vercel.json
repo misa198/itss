@@ -1,10 +1,10 @@
 {
   "version": 2,
+  "buildCommand": "npm rebuild",
   "builds": [
     {
       "src": "src/index.js",
-      "use": "@now/node",
-      "buildCommand": "npm rebuild"
+      "use": "@now/node"
     }
   ],
   "routes": [
