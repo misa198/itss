@@ -7,9 +7,9 @@ const herokuAwake = require("heroku-awake");
 const url = "https://sunflower-itss.herokuapp.com";
 
 const app = express();
-const cors = require('cors')
+const cors = require("cors");
 
-app.use(cors())
+app.use(cors());
 app.use(express.json());
 app.use("/auth", authController);
 app.use("/tasks", tasksController);
@@ -27,3 +27,5 @@ sequelize.authenticate().then(() => {
     herokuAwake(url, time);
   });
 });
+
+module.exports = app;
