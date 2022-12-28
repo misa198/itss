@@ -3,7 +3,8 @@
   "builds": [
     {
       "src": "src/index.js",
-      "use": "@now/node"
+      "use": "@now/node",
+      "buildCommand": "npm rebuild"
     }
   ],
   "routes": [
