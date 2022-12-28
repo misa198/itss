@@ -19,9 +19,9 @@ app.use("/", (req, res) => {
 
 sequelize.authenticate().then(() => {
   sequelize.sync();
-  app.listen(process.env.PORT || 3030, () => {
-    console.log(`Server running on port ${process.env.PORT}`);
-  });
+  // app.listen(process.env.PORT || 3030, () => {
+  //   console.log(`Server running on port ${process.env.PORT}`);
+  // });
 });
 
 module.exports = app;
