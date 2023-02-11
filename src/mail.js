@@ -54,6 +54,34 @@ module.exports.createDailyJob = () => {
   job.start();
 };
 
+module.exports.checkingTask = () => {
+  setInterval(async () => {
+    const { Task, User } = models;
+    const tasks = await Task.findAll();
+    tasks.forEach(task => {
+      let deadline = new Date(task.start_time).getTime();
+      let now = Date.now();
+      let time = (deadline.getTime() - now)/1000/60;
+      if (time < 17 && time >= 0) {
+        User.findOne({where: {
+          id: task.user_id
+        }}).then(user => {
+          if (user) {
+            let content = `Title: ${task.title}\nDescription: ${task.description}\nStart time: ${task.start_time}\npriority: ${task.priority}\nprogress: ${task.progress}\n`;
+            let cc = "";
+            if (time > 12) {
+              cc = "Sunflower ITSS - 15' time out";
+            } else if (time < 5) {
+              cc = "Sunflower ITSS - time out";
+            }
+            module.exports.sendMail(user.email, cc, content);
+          }
+        })
+      }
+    })
+  }, 3000000)
+}
+
 module.exports.sendMail = (email, subject, content) => {
   const transporter = nodemailer.createTransport(configOptions);
   const mailOptions = {

@@ -4,7 +4,7 @@ const authController = require("./controllers/auth");
 const tasksController = require("./controllers/tasks");
 const { sequelize } = require("./models");
 const herokuAwake = require("heroku-awake");
-const { createDailyJob } = require("./mail");
+const { createDailyJob, checkingTask } = require("./mail");
 const url = "https://pear-codfish-kit.cyclic.app";
 
 const app = express();
@@ -24,6 +24,8 @@ sequelize.authenticate().then(() => {
   // sequelize.sync();
   app.listen(process.env.PORT, () => {
     createDailyJob();
+    checkingTask();
+    
     console.log(`Server running on port ${process.env.PORT}`);
     const time = 10;
     herokuAwake(url, time);

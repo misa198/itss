@@ -85,4 +85,13 @@ router.delete("/:id", authMiddleware, async (req, res) => {
   return res.status(200).send("タスクが削除された");
 });
 
+router.get("/chart/:user_id", authMiddleware, createTaskMiddleware, async (req, res) => {
+  const { Task } = models;
+  const tasks = await Task.findAll({where: {
+    user_id: req.params.user_id
+  }});
+
+  res.json({tasks});
+})
+
 module.exports = router;
