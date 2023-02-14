@@ -11,6 +11,7 @@ create table tasks (
 	id int not null primary key auto_increment,
 	title varchar(255) unique not null,
 	description varchar(255),
+	deleted boolean,
 	content text not null,
 	priority enum("低い", "中", "高い") default "低い" not null,
 	start_time timestamp not null,
